@@ -1,45 +1,44 @@
-## Put comments here that give an overall description of what your
-## functions do
 
 ## Write a short comment describing this function
 
-
-## makeCacheMatrix: This function creates a special "matrix" 
-
-   ## object that can cache its inverse.
+The following functions are used to create a special object that stores a matrix and caches its inverse. 
+The first function, makeCacheMatrix creates a special “matrix”, which is really a list containing a function to:
+set the value of the matrix
+get the value of the matrix
+set the value of the inverse
+get the value of the inverse
 
 makeCachematrix <- function(x = matrix()) {
-  inv <- NULL
+  i <- NULL
   set <- function(y) {
     x <<- y
-    inv <<- NULL
+    i <<- NULL
   }
   get <- function() x
-  setInverse <- function(inverse) {inv <<- mean}
-  getInverse <- function() {inv}
-  list(set = set, get = get, setInverse= setInverse, getInverse = getInverse)
+  setinverse <- function(inverse) {i <<- inverse}
+  getinverse <- function() {i}
+  list(set = set,
+       get = get,
+       setInverse= setinverse, 
+       getInverse = getinverse)
 }
 
 ## Write a short comment describing this function
 
 
 
-## 2. cacheSolve: This function computes the inverse of the special "matrix"
-
-   ## returned by makeCacheMatrix above. If the inverse has already
-
-   ## been calculated (and the matrix has not changed), then the
-
-   ## cachesolve should retrieve the inverse from the cache.
+## 2. cacheSolve: 
+This function computes the inverse of the special “matrix” returned by makeCacheMatrix above. 
+If the inverse has already been calculated (and the matrix has not changed), then cacheSolve should retrieve the inverse from the cache.
 
 cachesolve <- function(x, ...) {
-  inv <- x$getInverse()
-  if(!is.null(inv)) {
+ i<- x$getinverse()
+  if(!is.null(i)) {
     message("getting cached data")
-    return(inv)
+    return(i)
   }
-  mat = x$get
-  m <- mean(mat, ...)
-  x$setInverse(inv)
-  inv
+  mat = x$get()
+  i <- mean(mat, ...)
+  x$setInverse(i)
+  i
 }
